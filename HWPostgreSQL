@@ -5,7 +5,7 @@ CREATE DATABASE otus_demo_question;
 -- создаем таблицу вопросов номер вопроса Первичный ключ
 CREATE TABLE question
 (
-    question_N	   SERIAL          PRIMARY KEY,
+    question_id	   SERIAL          PRIMARY KEY,
     question            VARCHAR(100)    NOT NULL UNIQUE
 );
 -- SERIAL - целое число, автоинкремент
@@ -34,11 +34,11 @@ SELECT * FROM question;
 
 CREATE TABLE answer
 (
-    answer_N     SERIAL          PRIMARY KEY,
+    answer_id     SERIAL          PRIMARY KEY,
 	answer_number INTEGER,
     answer       VARCHAR(100)    NOT NULL,
 	correct_or_not BOOLEAN NOT NULL,
-    question_N   INTEGER         REFERENCES question (question_N)
+    question_id   INTEGER         REFERENCES question (question_id)
 
 );
 -- REFERENCES departments (department_id) - внешний ключ
@@ -49,7 +49,7 @@ SELECT * FROM answer;
 
 -- заполним таблицу ответы
 
-INSERT INTO answer(answer_number, answer, correct_or_not, question_N)
+INSERT INTO answer(answer_number, answer, correct_or_not, question_id)
 VALUES
 (1, 'Монолитное ядро', true, 1),
 (2, 'Микро ядро', false, 1),
@@ -74,7 +74,7 @@ WHERE answer = 'Компьютерная инсталляция';
 
 -- вернули запись
 
-INSERT INTO answer(answer_number, answer, correct_or_not, question_N)
+INSERT INTO answer(answer_number, answer, correct_or_not, question_id)
 VALUES
 (3, 'Компьютерная инсталляция', false, 3);
 
@@ -91,13 +91,13 @@ WHERE answer = 'Тестируем';
 -- сортровка по возрастанию
 SELECT *
 FROM answer
-ORDER BY answer_N;
+ORDER BY answer_id;
 
 -- сортировка по убыванию
 
 SELECT *
 FROM answer
-ORDER BY answer_N DESC;
+ORDER BY answer_id DESC;
 
 -- WHERE (фильтрация)
 -- все ответы у которых номера ответов меньше 2
