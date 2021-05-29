@@ -37,7 +37,7 @@ CREATE TABLE answer
     answer_id     SERIAL          PRIMARY KEY,
 	answer_number INTEGER,
     answer       VARCHAR(100)    NOT NULL,
-	correct_or_not BOOLEAN NOT NULL,
+	is_checked_answer BOOLEAN NOT NULL,
     question_id   INTEGER         REFERENCES question (question_id)
 
 );
@@ -49,7 +49,7 @@ SELECT * FROM answer;
 
 -- заполним таблицу ответы
 
-INSERT INTO answer(answer_number, answer, correct_or_not, question_id)
+INSERT INTO answer(answer_number, answer, is_checked_answer, question_id)
 VALUES
 (1, 'Монолитное ядро', true, 1),
 (2, 'Микро ядро', false, 1),
@@ -74,7 +74,7 @@ WHERE answer = 'Компьютерная инсталляция';
 
 -- вернули запись
 
-INSERT INTO answer(answer_number, answer, correct_or_not, question_id)
+INSERT INTO answer(answer_number, answer, is_checked_answer, question_id)
 VALUES
 (3, 'Компьютерная инсталляция', false, 3);
 
