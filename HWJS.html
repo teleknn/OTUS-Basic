@@ -74,10 +74,10 @@
         }
 
     </style>
-
+    arrayAgeStudent
     <script>
     //Массив где храним возроста студентов
-    let arr = [];
+    let arrayAgeStudent = [];
         //Функция где добовляем строки с введеными данными
         function addStudent() {
            //Берем все нужные элементы записываем в переменные
@@ -86,9 +86,9 @@
            const selectSex = document.getElementById('selectSex').value;
 
            //Меняю формат даты для вывода
-           const d = new Date (dateBirth);
-           var dateString = ("0" + d.getDate()).slice(-2) + "." + ("0"+(d.getMonth()+1)).slice(-2) + "." +
-           d.getFullYear();
+           const dataFormat = new Date (dateBirth);
+           var dateString = ("0" + dataFormat.getDate()).slice(-2) + "." + ("0"+(dataFormat.getMonth()+1)).slice(-2) + "." +
+           dataFormat.getFullYear();
 
            //Взяли таблицу
            var table = document.getElementById('studentsTab');
@@ -114,15 +114,15 @@
         //Функция расчета среднего возраст
         function middleAge() {
            //Через цикл
-            arr.push(getAge());
+            arrayAgeStudent.push(getAge());
             var sum = 0;
-            for(var i = 0; i < arr.length; i++) {
-            sum += arr[i];
+            for(var i = 0; i < arrayAgeStudent.length; i++) {
+            sum += arrayAgeStudent[i];
                }
             //Округляем до целого
-            const averageAge =  Math.round(sum / arr.length);
+            const averageAge =  Math.round(sum / arrayAgeStudent.length);
             //Для проверки выводим в консоль значения массива и средней
-            console.log(arr);
+            console.log(arrayAgeStudent);
             console.log(averageAge);
 
             //Выводим значение в ячейку таблице
