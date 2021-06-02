@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>HW JavaScript Iurii</title>
+  <style>
+       .students-tab {
+            border: 1px solid steelblue;
+            width: 650px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .students-tab tr td {
+            border: 1px solid steelblue;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        .students-tab-col1 {
+            width: 300px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .students-tab-col2 {
+            width: 120px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .students-tab-col3 {
+            width: 150px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .students-tab-col4 {
+            width: 80px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        input[type=text], input[type=date] {
+            border: 1px solid steelblue;
+            float:right;
+            width: 350px;
+            height: 20px;
+            font-family: Arial;
+            font-size: 15px;
+            padding: 3px 5px;
+        }
+
+        .form {
+            border: 1px solid steelblue;
+            width: 650px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+          label {
+            line-height: 20px;
+             font-size: 18px;
+        }
+
+        .select {
+            border: 1px solid steelblue;
+            float: right;
+            width: 362px;
+            height: 28px;
+            font-family: Arial;
+            font-size: 15px;
+            padding: 3px 5px;
+        }
+
+        .pointer {
+        cursor: pointer;
+        }
+
+    </style>
+  <script>
+    //Массив где храним возроста студентов
+    let arrayAgeStudent = [];
+    const localStorageStartLength = localStorage.length;
+    const localStorageStartSumAge = localStorageSumAge();
+
+        //Функция где добовляем строки с введеными данными
+        function addStudent() {
+
+           //Берем все нужные элементы записываем в переменные
+           const nameTextBox = document.getElementById('nameTextBox').value;
+           const dateBirth = document.getElementById('dateBirth').value;
+           const selectSex = document.getElementById('selectSex').value;
+
+           //Взяли таблицу
+           var table = document.getElementById('studentsTab');
+           //Теперь создаем строку и присваиваем ее переменной
+           var tr = document.createElement("tr");
+           //Добавляем разметку в созданную строку и вставляем значения переменных
+           tr.innerHTML = "<td>" + nameTextBox + "</td> <td>" + selectSex  + "</td> <td>" +  dataFormat(dateBirth)
+           + "</td><td>" + getAge() + "</td>";
+           //Вставляем строку в таблицу
+           table.appendChild(tr);
+           //Вызываем функцию расчета среднего
+           middleAge();
+
+            //Записываем в localStorage
+            localSave(nameTextBox, dateBirth, selectSex, getAge());
+        }
+
+        //Функция расчет возраста
+        function getAge () {
+
+            //Взяли данные о рождении
+            const dateBirthGetAge = document.getElementById('dateBirth').value;
+            //Посчитали от текущей даты сколько лет
+            return Math.floor((new Date() - new Date(dateBirthGetAge)) / 1000 / 60 / 60 / 24 / 365)
+        }
+
+        //Функция расчета среднего возраст
+        function middleAge() {
+
+           //Через цикл
+            arrayAgeStudent.push(getAge());
+            var sum = 0;
+            for(var i = 0; i < arrayAgeStudent.length; i++) {
+            sum += arrayAgeStudent[i];
+            }
+            //Округляем до целого и рассчет среднего
+            const averageAge = Math.round( (sum + localStorageStartSumAge) / (arrayAgeStudent.length + localStorageStartLength) );
+            //Для проверки выводим в консоль значения массива и средней
+            console.log(arrayAgeStudent);
+            console.log(averageAge);
+
+            //Выводим значение в ячейку таблице
+            averageAgeTable.innerHTML = averageAge;
+        }
+
+        //Метод записи в localStorage
+        function localSave(name, data, sex, age) {
+
+            let student = {name: name, data: data, sex: sex, age: age};
+            localStorage.setItem(localStorage.length, JSON.stringify(student));
+        }
+
+         //Метод очистки localStorage и перезгрузка браузера
+         function localClear() {
+            localStorage.clear();
+            location.reload();
+         }
+
+         //Метод расчета суммы возраста по localStorage
+         function localStorageSumAge() {
+
+            var sumStorageAge = 0;
+            for(var key = 0; key < localStorage.length; key++) {
+            studentLocalStorageAge = JSON.parse(localStorage.getItem(key));
+            sumStorageAge += studentLocalStorageAge.age;
+            }
+            return sumStorageAge;
+         }
+
+         //Метод преоброзования даты
+         function dataFormat(date) {
+
+            const dataFormat = new Date (date);
+            var dateString = ("0" + dataFormat.getDate()).slice(-2) + "." + ("0"+(dataFormat.getMonth()+1)).slice(-2) + "." +
+            dataFormat.getFullYear();
+            return dateString;
+         }
+
+    </script>
+
+</head>
+<body>
+
+<h1>Домашняя работа JavaScript Iurii</h1>
+<h2>Форма добавления информации о студенте</h2>
+
+<form class="form">
+  <p>
+    <label for="nameTextBox"> Имя студента: </label>
+    <input id="nameTextBox" name="name" type="text">
+  </p>
+
+  <p>
+    <label for="dateBirth"> Дата рождения: </label>
+    <input id="dateBirth" name="dateBirth" type="date" value="1970-01-01">
+  </p>
+  <p>
+    <label>
+      Пол:
+      <select id="selectSex" name="sex" class="select">
+        <option value="Мужчина" selected>Мужчина</option>
+        <option value="Женщина">Женщина</option>
+      </select>
+    </label>
+  </p>
+  <input type="button" value="Добавить" onclick="addStudent()" class="pointer">
+
+</form>
+
+<h2>Таблица студентов</h2>
+<h2><input type="button" value="Очистить таблицу" onclick="localClear()" class="pointer"></h2>
+
+<table class="students-tab" id="studentsTab">
+  <thead>
+  <tr>
+    <td class="students-tab-col1" >Имя студента</td>
+    <td class="students-tab-col2" >Пол</td>
+    <td class="students-tab-col3" >Дата рождения</td>
+    <td class="students-tab-col4" >Возраст</td>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">Средний возраст студентов</td>
+    <td id="averageAgeTable"></td>
+  </tr>
+  </tfoot>
+</table>
+<script>
+           //Вызываем из localStorage все что там лежит и добавляем в таблицу
+
+           var studentRead = {};
+           //Прогоняем по всем ключам
+           for(var key = 0; key < localStorage.length; key++) {
+           studentRead = JSON.parse(localStorage.getItem(key));
+           //Взяли таблицу
+           var table = document.getElementById('studentsTab');
+           //Теперь создаем строку и присваиваем ее переменной
+           var tr = document.createElement("tr");
+           //Добавляем разметку в созданную строку и вставляем значения переменных
+           tr.innerHTML = "<td>" + studentRead.name + "</td> <td>" + studentRead.sex  + "</td> <td>" +  dataFormat(studentRead.data)
+           + "</td><td>" + studentRead.age + "</td>";
+           //Вставляем строку в таблицу
+           table.appendChild(tr);
+           }
+           if (localStorage.length == 0) {
+           averageAgeTable.innerHTML = 0;
+           } else {
+           const averageAgeStorage =  Math.round(localStorageSumAge() / localStorage.length);
+           averageAgeTable.innerHTML = averageAgeStorage;
+           }
+   </script>
+
+</body>
+</html>
