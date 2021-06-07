@@ -21,7 +21,7 @@ public class CurrencyImpl implements Currency {
 
         long wholePart = (long) inputSumDouble; //Целая часть
         double fractionalPart = inputSumDouble - wholePart; // дробная часть
-        long lastСharacterWholePart = wholePart % 10; // крайний сиввол в целой части
+        long lastСharacterWholePart = wholePart % 10; // крайний символ в целой части
         long twoLastСharacterWholePart = wholePart % 100; // крайние два символа в целой части
 
         if (fractionalPart > 0)
