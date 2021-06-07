@@ -11,18 +11,6 @@ public class CurrencyImpl implements Currency {
         this.nameForSingular = nameForSingular;
     }
 
-    public void setNameForFractionalNumber(String nameForFractionalNumber) {
-        this.nameForFractionalNumber = nameForFractionalNumber;
-    }
-
-    public void setNameForPlural(String nameForPlural) {
-        this.nameForPlural = nameForPlural;
-    }
-
-    public void setNameForSingular(String nameForSingular) {
-        this.nameForSingular = nameForSingular;
-    }
-
     public String writeCurrency(double inputSumDouble) {
 
         if (inputSumDouble > (1 * Math.pow(10, 14)))
