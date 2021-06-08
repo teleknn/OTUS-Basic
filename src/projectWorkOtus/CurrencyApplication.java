@@ -14,10 +14,10 @@ public class CurrencyApplication {
     public void run() {
 
         while (true) {
-            ioService.outputDate("Введите сумму (exit для выходы): ");
-            String inputSumString = ioService.inputDate();
+            ioService.outputData("Введите сумму (exit для выходы): ");
+            String inputSumString = ioService.inputData();
             if (inputSumString.equals("exit")) {
-                ioService.outputDate("До свидания!");
+                ioService.outputData("До свидания!");
                 break;
             }
 
@@ -27,7 +27,7 @@ public class CurrencyApplication {
                         currency.writeCurrency(inputSumDouble) + "\n");
 
             } catch (NumberFormatException e) {
-                ioService.outputDate("Ошибка ввода! Неправильный формат" + "\n");
+                ioService.outputData("Ошибка ввода! Неправильный формат" + "\n");
             }
 
         }
