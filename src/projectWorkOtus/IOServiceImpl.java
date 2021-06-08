@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class IOServiceImpl implements IOService {
 
-    public String inputDate() {
+    public String inputData() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    public void outputDate(String message) {
+    public void outputData(String message) {
         System.out.println(message);
     }
 

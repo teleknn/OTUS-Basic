@@ -1,8 +1,8 @@
 package projectWorkOtus;
 
 public interface IOService {
-    public String inputDate();
+    public String inputData();
 
-    public void outputDate(String message);
+    public void outputData(String message);
 
 }
